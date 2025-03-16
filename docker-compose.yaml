@@ -2,7 +2,7 @@ version: "2.1"
 services:
   funeral:
     image: lukasdotcom/funeral:latest
-    container_name: bundesliga
+    container_name: funeral
 
     environment:
       - DATABASE_FILE=/mnt/db.db
