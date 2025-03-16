@@ -12,6 +12,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Spinner } from "@/components/ui/spinner";
+import { cookies } from "next/headers";
 
 export const generateMetadata = async ({
   params,
@@ -77,47 +78,9 @@ export default async function MemorialPage({
           {person.description}
         </p>
       </header>
-
-      <section className="mb-12">
-        <h3 className="text-2xl font-semibold text-center mb-8 flex items-center justify-center gap-2">
-          <Candle className="h-6 w-6" />
-          <span>Eine Kerze anzünden</span>
-        </h3>
-
-        <form
-          action={createCandle}
-          className="max-w-md mx-auto p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-md"
-        >
-          <input type="hidden" name="url" value={name} />
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Dein Name</Label>
-              <Input
-                id="name"
-                name="name"
-                placeholder="Geben Sie Ihren Namen ein"
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="message">Deine Nachricht</Label>
-              <Textarea
-                id="message"
-                name="message"
-                placeholder="Erzählen Sie eine Erinnerung oder eine Nachricht des Mitgefühls"
-                className="min-h-[100px]"
-                required
-              />
-            </div>
-
-            <Button type="submit" className="w-full">
-              <Candle className="mr-2 h-4 w-4" />
-              Zünde eine Kerze
-            </Button>
-          </div>
-        </form>
-      </section>
+      <Suspense fallback={<Spinner size="large" />}>
+        <CreateEditCandle url={person.url} />
+      </Suspense>
 
       <section className="mb-12">
         <h3 className="text-2xl font-semibold text-center mb-8 flex items-center justify-center gap-2">
@@ -149,13 +112,13 @@ async function Candles({ name }: { name: string }) {
   const candles = await db
     .selectFrom("candles")
     .selectAll()
-    .where("for_name", "=", name)
-    .orderBy("id")
+    .where("for_url", "=", name)
+    .orderBy("date")
     .execute();
   return (
     <>
       {candles.map((candle) => (
-        <Card key={candle.id} className="overflow-hidden">
+        <Card key={candle.name + candle.date} className="overflow-hidden">
           <CardContent className="p-6">
             <div className="flex items-center justify-center mb-4">
               <div className="relative w-16 h-24">
@@ -178,5 +141,63 @@ async function Candles({ name }: { name: string }) {
         </Card>
       ))}
     </>
+  );
+}
+
+async function CreateEditCandle({ url }: { url: string }) {
+  const cookieStore = await cookies();
+  const userid = cookieStore.get("userid")?.value;
+  const candle = await db
+    .selectFrom("candles")
+    .selectAll()
+    .where("for_url", "=", url)
+    .where("owner", "=", String(userid))
+    .executeTakeFirst();
+  return (
+    <section className="mb-12">
+      <h3 className="text-2xl font-semibold text-center mb-8 flex items-center justify-center gap-2">
+        <Candle className="h-6 w-6" />
+        <span>
+          {candle === undefined
+            ? "Eine Kerze anzünden"
+            : "Deine Kerze aktualisieren"}
+        </span>
+      </h3>
+      <form
+        action={createCandle}
+        className="max-w-md mx-auto p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-md"
+      >
+        <input type="hidden" name="url" value={url} />
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="name">Dein Name</Label>
+            <Input
+              defaultValue={candle?.name}
+              id="name"
+              name="name"
+              placeholder="Geben Sie Ihren Namen ein"
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="message">Deine Nachricht</Label>
+            <Textarea
+              defaultValue={candle?.message}
+              id="message"
+              name="message"
+              placeholder="Erzählen Sie eine Erinnerung oder eine Nachricht des Mitgefühls"
+              className="min-h-[100px]"
+              required
+            />
+          </div>
+
+          <Button type="submit" className="w-full">
+            <Candle className="mr-2 h-4 w-4" />
+            {candle === undefined ? "Zünde eine Kerze" : "Kerze aktualisieren"}
+          </Button>
+        </div>
+      </form>
+    </section>
   );
 }
