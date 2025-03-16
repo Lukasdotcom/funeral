@@ -6,7 +6,7 @@ services:
 
     environment:
       - DATABASE_FILE=/mnt/db.db
-      #- SECRET=password # The password to add pages can be disabled to allow anyone
+      - SECRET=password # The password to add pages and edit them
 
     ports:
       - 3000:3000

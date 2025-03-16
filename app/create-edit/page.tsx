@@ -34,7 +34,7 @@ export default async function CreateEdit() {
   );
 }
 
-export function Logout() {
+function Logout() {
   return (
     <form
       action={async () => {
