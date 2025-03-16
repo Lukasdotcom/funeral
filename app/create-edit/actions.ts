@@ -145,6 +145,7 @@ export async function deleteMemorial(
   }
   console.log(`Deleted memorial at url: (${url})`);
   await db.deleteFrom("people").where("url", "=", url).execute();
+  await db.deleteFrom("candles").where("for_name", "=", url).execute();
   revalidatePath("/");
   revalidatePath(`/${url}`);
   revalidatePath("/create-edit");
