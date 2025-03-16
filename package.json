@@ -12,7 +12,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "migrate": "npx tsx ./lib/migrate.ts",
-    "docker": "npm run migrate; npm run start"
+    "docker": "rm build && npm run docker-first-run; npm run start",
+    "docker-first-run": "npm run migrate; npm run build"
   },
   "dependencies": {
     "@radix-ui/react-label": "2.1.2",

@@ -5,8 +5,7 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 RUN npm ci
-RUN npm run migrate
-RUN npm run build
+RUN touch /app/build
 
 EXPOSE 3000
 
