@@ -88,7 +88,7 @@ export default function EditDelete({
               name="description"
               placeholder="Schreiben Sie eine Beschreibung der Person"
               className="min-h-[100px]"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onChange={(e) =>
                 setData({
                   ...data,
                   description: e.target.value,
