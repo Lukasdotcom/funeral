@@ -8,6 +8,7 @@ import { People } from "@/lib/types";
 import { TrashIcon } from "lucide-react";
 import { useActionState, useState } from "react";
 import { updateMemorial, deleteMemorial } from "@/app/create-edit/actions";
+import Image from "next/image";
 
 export default function EditDelete({
   people,
@@ -112,6 +113,16 @@ export default function EditDelete({
               }
               required
             />
+            {data.photo.startsWith("https://immich.lschaefer.xyz") && (
+              <div className="relative w-24 h-24 mb-4 overflow-hidden rounded-full border-2 border-neutral-200">
+                <Image
+                  src={data.photo}
+                  alt={`Foto von ${data.name}`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="album">Album</Label>
