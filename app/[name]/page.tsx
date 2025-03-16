@@ -9,6 +9,30 @@ import { createCandle } from "@/app/actions";
 import { Candle } from "@/components/candle";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ name: string }>;
+}): Promise<Metadata> => {
+  const { name } = await params;
+  const person = await db
+    .selectFrom("people")
+    .selectAll()
+    .where("url", "=", name)
+    .executeTakeFirst();
+  if (!person) {
+    return {
+      title: "Gedenkseite nicht gefunden",
+      description: "Die Gedenkseite, die Sie suchen, wurde nicht gefunden.",
+    };
+  }
+  return {
+    title: `Liebevolle Erinnerung - ${person.name}`,
+    description: person.description,
+  };
+};
 
 export async function generateStaticParams() {
   const people = await db.selectFrom("people").selectAll().execute();

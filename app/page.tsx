@@ -8,6 +8,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Gedenkseite",
+  description:
+    "Ein Gedenkseite, um diejenigen zu ehren und zu erinnern, die unser Leben berührt haben",
+};
 
 export default function MemorialPage() {
   return (

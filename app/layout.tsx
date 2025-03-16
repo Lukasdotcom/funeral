@@ -1,12 +1,6 @@
 import type React from "react";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "In Loving Memory",
-  description: "A memorial tribute page",
-};
 
 export default function RootLayout({
   children,
