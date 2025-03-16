@@ -1,0 +1,18 @@
+version: "2.1"
+services:
+  funeral:
+    image: lukasdotcom/funeral:latest
+    container_name: bundesliga
+
+    environment:
+      - DATABASE_FILE=/mnt/db.db
+      #- SECRET=password # The password to add pages can be disabled to allow anyone
+
+    ports:
+      - 3000:3000
+    restart: always
+    volumes:
+      - funeral:/mnt
+volumes:
+  funeral:
+    external: true

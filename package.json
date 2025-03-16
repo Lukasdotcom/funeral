@@ -6,22 +6,43 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dbtypes": "kysely-codegen --url ./test.db --out-file ./lib/types.ts",
+    "dbtypes:check": "kysely-codegen --url ./test.db --out-file ./lib/types.ts --verify --log-level=error",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "migrate": "npx tsx ./lib/migrate.ts",
+    "docker": "npm run migrate; npm run start"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.2.2"
+    "@radix-ui/react-label": "2.1.2",
+    "@radix-ui/react-slot": "1.1.2",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "kysely": "0.27.6",
+    "lucide-react": "0.482.0",
+    "next": "15.2.2",
+    "next-themes": "0.4.6",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "tailwind-merge": "3.0.2",
+    "tailwindcss-animate": "1.0.7",
+    "ts-node": "10.9.2",
+    "tsx": "^4.19.3"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
-    "eslint": "^9",
+    "@eslint/eslintrc": "3",
+    "@tailwindcss/postcss": "4",
+    "@types/better-sqlite3": "7.6.12",
+    "@types/node": "20",
+    "@types/react": "19",
+    "@types/react-dom": "19",
+    "better-sqlite3": "11.9.0",
+    "eslint": "9",
     "eslint-config-next": "15.2.2",
-    "@eslint/eslintrc": "^3"
+    "kysely-codegen": "^0.18.3",
+    "prettier": "3.5.3",
+    "tailwindcss": "4",
+    "typescript": "5"
   }
 }
