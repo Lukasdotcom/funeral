@@ -11,10 +11,10 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 
 export interface Candles {
   date: Generated<string>;
-  for_name: string;
-  id: Generated<number | null>;
+  for_url: string;
   message: string;
   name: string;
+  owner: string;
 }
 
 export interface People {
