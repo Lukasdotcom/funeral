@@ -4,7 +4,7 @@ LABEL authors="lukas"
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
-RUN npm ci
+RUN npm ci --omit=dev
 RUN touch /app/build
 
 EXPOSE 3000
