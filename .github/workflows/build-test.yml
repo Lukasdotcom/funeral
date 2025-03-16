@@ -1,0 +1,34 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 22.x ]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      # Installs packages
+      - run: npm ci
+      # Makes sure the code is formatted correctly
+      - run: npm run format:check
+      # Runs migrations
+      - run: npm run migrate
+      # Lints
+      - run: npm run lint
+      # Checks the db types
+      - run: npm run dbtypes:check
+      # Builds the project
+      - run: npm run build
