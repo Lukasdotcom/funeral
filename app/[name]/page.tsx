@@ -14,6 +14,7 @@ import { Suspense } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { cookies } from "next/headers";
 import { CandleColors, getCandleColor } from "@/lib/candle";
+import { cn } from "@/lib/utils";
 
 export const generateMetadata = async ({
   params,
@@ -124,7 +125,7 @@ async function Candles({ name }: { name: string }) {
             <div className="flex items-center justify-center mb-4">
               <div className="relative w-16 h-24">
                 <Candle
-                  className={`w-16 h-24 text-${getCandleColor(candle.color)}-500 dark:text-${getCandleColor(candle.color)}-400`}
+                  className={cn("w-16 h-24", getCandleColor(candle.color))}
                   pulse={true}
                 />
               </div>
