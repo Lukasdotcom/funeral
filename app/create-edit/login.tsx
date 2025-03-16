@@ -23,7 +23,7 @@ export default function Login() {
           <Input
             id="password"
             name="password"
-            type="pasword"
+            type="password"
             placeholder="Geben Sie Ihr passwort ein"
           />
           {state.error !== "" && <p className="text-red-500">{state.error}</p>}
