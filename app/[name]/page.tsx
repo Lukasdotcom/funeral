@@ -13,6 +13,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { cookies } from "next/headers";
+import { CandleColors, getCandleColor } from "@/lib/candle";
 
 export const generateMetadata = async ({
   params,
@@ -123,7 +124,7 @@ async function Candles({ name }: { name: string }) {
             <div className="flex items-center justify-center mb-4">
               <div className="relative w-16 h-24">
                 <Candle
-                  className="w-16 h-24 text-amber-500 dark:text-amber-400"
+                  className={`w-16 h-24 text-${getCandleColor(candle.color)}-500 dark:text-${getCandleColor(candle.color)}-400`}
                   pulse={true}
                 />
               </div>
@@ -190,6 +191,23 @@ async function CreateEditCandle({ url }: { url: string }) {
               className="min-h-[100px]"
               required
             />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="url">Kerzenfarbe</Label>
+            <select
+              id="color"
+              name="color"
+              className="block w-full px-3 py-2 border border-input"
+              defaultValue={candle?.color || "gelb"}
+              required
+            >
+              {CandleColors.map((color) => (
+                <option key={color} value={color}>
+                  {color}
+                </option>
+              ))}
+            </select>
           </div>
 
           <Button type="submit" className="w-full">

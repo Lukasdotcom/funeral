@@ -8,6 +8,7 @@ export async function createCandle(formData: FormData) {
   const name = formData.get("name") as string;
   const message = formData.get("message") as string;
   const url = formData.get("url") as string;
+  const color = formData.get("color") as string;
   const cookieStore = await cookies();
   let userid = cookieStore.get("userid")?.value;
   if (!userid) {
@@ -16,9 +17,9 @@ export async function createCandle(formData: FormData) {
   }
   await db
     .insertInto("candles")
-    .values({ name, message, for_url: url, owner: userid })
-    .onConflict((oc) => oc.doUpdateSet({ name, message }))
+    .values({ name, message, for_url: url, owner: userid, color })
+    .onConflict((oc) => oc.doUpdateSet({ name, message, color }))
     .execute();
-  console.log("Candle:", { name, message, url, userid });
+  console.log("Candle:", { name, message, url, userid, color });
   revalidatePath(`/${url}`);
 }
