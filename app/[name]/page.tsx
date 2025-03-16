@@ -5,11 +5,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createCandle } from "@/app/actions";
+import { createCandle } from "./actions";
 import { Candle } from "@/components/candle";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 export const generateMetadata = async ({
   params,
@@ -123,9 +125,11 @@ export default async function MemorialPage({
           <span>Kerzen & Kondolenznachrichten</span>
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Candles name={person.url} />
-        </div>
+        <Suspense fallback={<Spinner className="w-full" size={"large"} />}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Candles name={person.url} />
+          </div>
+        </Suspense>
       </section>
       {person.album && (
         <section className="mb-12 h-[100vh]">

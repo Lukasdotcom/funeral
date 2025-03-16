@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 export const metadata: Metadata = {
   title: "Gedenkseite",
@@ -37,82 +39,22 @@ export default function MemorialPage() {
         <h2 className="text-2xl font-semibold text-center mb-8">
           In liebevoller Erinnerung
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <People />
-        </div>
-      </section>
-
-      <section className="mt-16 text-center">
-        <form
-          action={createMemorial}
-          className="max-w-3xl mx-auto p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-md"
-        >
-          <h2 className="text-2xl font-semibold mb-6">
-            Erstelle ein Gedenkblatt
-          </h2>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Namen der Person</Label>
-              <Input
-                id="name"
-                name="name"
-                placeholder="Geben Sie den Namen der Person ein"
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="description">Beschreibung der Person</Label>
-              <Textarea
-                id="description"
-                name="description"
-                placeholder="Schreiben Sie eine Beschreibung der Person"
-                className="min-h-[100px]"
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="photo">Foto</Label>
-              <Input
-                id="photo"
-                name="photo"
-                placeholder="Geben Sie einen Link für ein Foto ein"
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="album">Album</Label>
-              <Input
-                id="album"
-                name="album"
-                placeholder="Geben Sie einen Link für ein Fotoalbum ein"
-              />
-            </div>
-            <div className="sm:flex sm:items-center sm:gap-3">
-              <div className="sm:w-1/2">
-                <Label htmlFor="birth">Geburtsdatum</Label>
-                <Input id="birth" name="birth" type="date" required />
-              </div>
-              <div className="sm:w-1/2">
-                <Label htmlFor="death">Sterbedatum</Label>
-                <Input id="death" name="death" type="date" required />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Passwort</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Sicherheits Passwort eingeben"
-                required
-              />
-            </div>
-            <Button type="submit" className="w-full">
-              Eine Gedenkseite erstellen
-            </Button>
+        <Suspense fallback={<Spinner size="large" />}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <People />
           </div>
-        </form>
+        </Suspense>
+      </section>
+      <section className="mt-16 text-center">
+        <h2 className="text-2xl font-semibold mb-6">
+          Erstelle eine Gedenkseite
+        </h2>
+        <Link
+          href="/create-edit"
+          className="inline-flex items-center justify-center rounded-md bg-gray-900 px-6 py-3 text-sm font-medium text-white shadow transition-colors hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200"
+        >
+          Erstelle eine Gedenkseite
+        </Link>
       </section>
     </>
   );
