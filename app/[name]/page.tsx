@@ -59,13 +59,13 @@ export default async function MemorialPage({
         <div className="relative w-40 h-40 mb-6 overflow-hidden rounded-full border-4 border-neutral-700 dark:border-neutral-200 shadow-lg">
           <Image
             src={person.photo}
-            alt="Memorial Photo"
+            alt={`Foto von ${person.name}`}
             fill
             className="object-cover"
             priority
           />
         </div>
-        <h1 className="text-3xl font-bold mb-2">In Liebevolle Erinnerung</h1>
+        <h1 className="text-3xl font-bold mb-2">In liebevoller Erinnerung</h1>
         <h2 className="text-2xl mb-4">{person.name}</h2>
         <p className="text-neutral-600 dark:text-neutral-400 mb-2">
           {new Date(person.birth + " ").toDateString()} -{" "}
@@ -79,7 +79,7 @@ export default async function MemorialPage({
       <section className="mb-12">
         <h3 className="text-2xl font-semibold text-center mb-8 flex items-center justify-center gap-2">
           <Candle className="h-6 w-6" />
-          <span>Eine Kerze Anzünden</span>
+          <span>Eine Kerze anzünden</span>
         </h3>
 
         <form
@@ -120,7 +120,7 @@ export default async function MemorialPage({
       <section className="mb-12">
         <h3 className="text-2xl font-semibold text-center mb-8 flex items-center justify-center gap-2">
           <Heart className="h-6 w-6" />
-          <span>Kerzen & Tributnachrichten</span>
+          <span>Kerzen & Kondolenznachrichten</span>
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

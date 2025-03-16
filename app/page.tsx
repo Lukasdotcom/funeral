@@ -35,7 +35,7 @@ export default function MemorialPage() {
 
       <section>
         <h2 className="text-2xl font-semibold text-center mb-8">
-          In Liebevolle Erinnerung
+          In liebevoller Erinnerung
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           <People />
