@@ -113,7 +113,7 @@ async function Candles({ name }: { name: string }) {
     .selectFrom("candles")
     .selectAll()
     .where("for_url", "=", name)
-    .orderBy("date")
+    .orderBy("date", "desc")
     .execute();
   return (
     <>
