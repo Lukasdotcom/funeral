@@ -78,8 +78,8 @@ async function People() {
                 </div>
                 <h3 className="font-semibold text-lg mb-1">{person.name}</h3>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-2">
-                  {new Date(person.birth).toLocaleDateString()} -{" "}
-                  {new Date(person.death).toLocaleDateString()}
+                  {new Date(person.birth).toLocaleDateString("de-DE")} -{" "}
+                  {new Date(person.death).toLocaleDateString("de-DE")}
                 </p>
                 <p className="text-sm text-neutral-600 dark:text-neutral-300">
                   {person.description}

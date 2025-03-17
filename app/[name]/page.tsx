@@ -73,8 +73,17 @@ export default async function MemorialPage({
         <h1 className="text-3xl font-bold mb-2">In liebevoller Erinnerung</h1>
         <h2 className="text-2xl mb-4">{person.name}</h2>
         <p className="text-neutral-600 dark:text-neutral-400 mb-2">
-          {new Date(person.birth + " ").toDateString()} -{" "}
-          {new Date(person.death + " ").toDateString()}
+          {new Date(person.birth + " ").toLocaleDateString("de-DE", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}{" "}
+          -{" "}
+          {new Date(person.death + " ").toLocaleDateString("de-DE", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </p>
         <p className="max-w-2xl text-neutral-600 dark:text-neutral-400">
           {person.description}
@@ -137,7 +146,11 @@ async function Candles({ name }: { name: string }) {
               Mit liebe, {candle.name}
             </p>
             <p className="text-xs text-neutral-500 dark:text-neutral-400 text-center mt-2">
-              {new Date(candle.date + " ").toDateString()}
+              {new Date(candle.date + " ").toLocaleDateString("de-DE", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </p>
           </CardContent>
         </Card>
